@@ -11,7 +11,7 @@ sudo yum update -y
 sudo yum install python2 epel-release -y
 sudo yum install git -y
 sudo echo "192.168.22.10	ansiblecontroller.example.com ansiblecontroller" >> /etc/hosts
-sudo echo "192.168.22.01	database.example.com database" >> /etc/hosts
+sudo echo "192.168.22.14	database.example.com database" >> /etc/hosts
 sudo echo "192.168.22.11   node01.example.com 	node01" >> /etc/hosts
 sudo echo "192.168.22.12   node02.example.com      node02" >> /etc/hosts
 sudo echo "192.168.22.13   node03.example.com      node03" >> /etc/hosts
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
 
 
          # IP allocation
-         db.vm.network "private_network", ip: "192.168.22.01", virtualbox__intnet: "mynetwork01"
+         db.vm.network "private_network", ip: "192.168.22.14", virtualbox__intnet: "mynetwork01"
 
          # Host name allocation
          db.vm.hostname = "database.example.com"

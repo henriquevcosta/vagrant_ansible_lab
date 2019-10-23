@@ -10,11 +10,11 @@ $commonscript = <<-SCRIPT
 sudo yum update -y
 sudo yum install python2 epel-release -y
 sudo yum install git -y
-sudo echo "192.168.22.10	ansiblecontroller.example.com ansiblecontroller" >> /etc/hosts
-sudo echo "192.168.22.01	database.example.com database" >> /etc/hosts
-sudo echo "192.168.22.11   node01.example.com 	node01" >> /etc/hosts
-sudo echo "192.168.22.12   node02.example.com      node02" >> /etc/hosts
-sudo echo "192.168.22.13   node03.example.com      node03" >> /etc/hosts
+sudo echo "192.168.22.10	ansiblecontroller.example.com	ansiblecontroller" >> /etc/hosts
+sudo echo "192.168.22.20	database.example.com	database" >> /etc/hosts
+sudo echo "192.168.22.11	node01.example.com	node01" >> /etc/hosts
+sudo echo "192.168.22.12	node02.example.com	node02" >> /etc/hosts
+sudo echo "192.168.22.13	node03.example.com	node03" >> /etc/hosts
 sudo echo "LANG=en_US.utf-8" > /etc/environment
 sudo echo "LC_ALL=en_US.utf-8" >> /etc/environment
 SCRIPT
@@ -39,15 +39,17 @@ Vagrant.configure("2") do |config|
     config.vm.define "postgres" do |db|
 
          # Box - This one isn't particularly great because it only has a single db, may not work
-         db.vm.box = "mbr/postgres"
-
+         #db.vm.box = "mbr/postgres"
+         db.vm.box = "sipadan2003/PostgreSQL-9.6.9"
 
          # IP allocation
-         db.vm.network "private_network", ip: "192.168.22.01", virtualbox__intnet: "mynetwork01"
+         db.vm.network "private_network", ip: "192.168.22.20", virtualbox__intnet: "mynetwork01"
 
          # Host name allocation
          db.vm.hostname = "database.example.com"
 
+	 # Disable vbox additions
+	 #db.vbguest.auto_update = false
      end
 
     config.vm.define "ansiblecontroller" do |ansiblecontroller|
